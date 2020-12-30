@@ -1,4 +1,5 @@
 <script>
+    // import Block from './block.svg'
     export let color;
     let flipped = false
     // export let type;
@@ -48,15 +49,15 @@
     .flipper.flipped {
         transform: rotateY(180deg);
     }
+
 </style>
 
 <div class="card"  ontouchstart="this.classList.toggle('hover');" on:click={() => flipped = !flipped}>
     <div class="flipper" class:flipped>
-        <div class="front">
-            <svg width="200" height="150">
-                <rect width="200" height="150" rx="20" ry="20" 
-                    style={`fill:${color};stroke:${color};stroke-width:5;opacity:0.8`} />
-            </svg>
+        <div class="front" style={`--block-color: ${color}`}>
+            <object type="image/svg+xml" data="block.svg" class="logo" title="block">
+                block Logo <!-- fallback image in CSS -->
+              </object>
         </div>
         <div class="back"> This is the back</div>
     </div>
