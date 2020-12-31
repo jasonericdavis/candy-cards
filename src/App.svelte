@@ -1,6 +1,14 @@
 <script>
 	import Card from './Card.svelte'
 	import deck from './deck'
+	let cardIndex = 0
+	let card = deck[cardIndex]
+
+	const getNextCard = () => {
+		console.log(`I am the click handler`)
+		cardIndex = (cardIndex >= deck.length - 1)? 0 : cardIndex + 1
+		card = deck[cardIndex]
+	}
 	export let name;
 </script>
 
@@ -30,7 +38,5 @@
 
 <main>
 	<h1>{name}!</h1>
-	{#each deck as card}
-		<Card {...card}/>
-	{/each}
+	<Card {...card} clickHandler={getNextCard}/>
 </main>
