@@ -1,6 +1,8 @@
 <script>
-	import Card from './Card.svelte'
+	import ColorCard from './ColorCard.svelte'
 	import deck from './deck'
+	import { slide } from 'svelte/transition';
+
 	let cardIndex = 0
 	let card = deck[cardIndex]
 
@@ -11,8 +13,6 @@
 	}
 	export let name;
 </script>
-
-
 
 <style>
 	main {
@@ -25,7 +25,7 @@
 	h1 {
 		color: #ff3e00;
 		text-transform: uppercase;
-		font-size: 4em;
+		font-size: 1.5em;
 		font-weight: 100;
 	}
 
@@ -38,5 +38,11 @@
 
 <main>
 	<h1>{name}!</h1>
-	<Card {...card} clickHandler={getNextCard}/>
+	<div on:click={getNextCard}  transition:slide="{{delay: 250, duration: 1000}}">
+		{#if card.type === 'color'}
+			<ColorCard {card} />
+		{:else}
+			<div>TODO: create the other types of blocks</div>
+		{/if}
+	</div>
 </main>
