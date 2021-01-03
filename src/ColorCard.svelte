@@ -15,15 +15,6 @@
         
     }
 
-    .card {
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: 15px;
-        padding-bottom: 10px;
-        background-color: #F8F8F8;
-    }
-
     span {
         background-color: #C4C4C4;
         color: var(--card-color);
@@ -37,7 +28,7 @@
 
 </style>
 
-<div class="card" style={`--block-color: ${card.color}; max-width: 500px`}>
+<div class="card" style={`--block-color: var(--block-color-${card.color}); max-width: 500px`}>
     
     {#if card.blocks > 1}
         <div style={'display: flex'}>

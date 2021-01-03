@@ -1,6 +1,7 @@
 <script>
-	import ColorCard from './ColorCard.svelte'
-	import cards from './deck'
+	import ColorCard from './ColorCard.svelte';
+	import CandyCard from './CandyCard.svelte';
+	import cards from './deck';
 	import { slide } from 'svelte/transition';
 
 	let cardIndex
@@ -39,15 +40,38 @@
 			max-width: none;
 		}
 	}
+
+	:global(.card) {
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+		margin-left: auto;
+		margin-right: auto;
+		padding-top: 15px;
+		padding-bottom: 10px;
+		background-color: #F8F8F8;
+	}
+
+	:global(:root) {
+		--block-color-purple: #AB47BC;
+		--block-color-red: #F44336;
+		--block-color-yellow: #FFF176;
+		--block-color-green: #81C784;
+		--block-color-blue: #5DADE2;
+		--block-color-orange: #FFA726;
+	}
 </style>
 
 <main>
 	<h1>{name}!</h1>
 	<div on:click={getNextCard}  transition:slide="{{delay: 250, duration: 1000}}">
-		{#if card && card.type === 'color'}
-			<ColorCard {card} />
+		{#if !card}
+			<div>Welcome to Candy Cards. Click to start</div>
 		{:else}
-			<div>TODO: create the other types of blocks</div>
+			{#if card.type === 'color'}
+				<ColorCard {card} />
+			{/if}
+			{#if card.type === 'candy'}
+				<CandyCard {card} />
+			{/if}
 		{/if}
 	</div>
 </main>
