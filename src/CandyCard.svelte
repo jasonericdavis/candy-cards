@@ -19,11 +19,10 @@
     }
 </style>
 
-<div class="card" style={`--block-color: transparent; max-width: 500px`}>
-    <div class="block">
+
+    <div class="block" style={`--block-color: transparent;`}>
         <img src={card.url} alt={card.name}/>
     </div>
     <p>
         Move to the {card.name} block
     </p>
-</div>

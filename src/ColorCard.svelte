@@ -12,7 +12,6 @@
         border-radius: 25px;
         margin-left: auto;
         margin-right: auto;
-        
     }
 
     span {
@@ -28,8 +27,7 @@
 
 </style>
 
-<div class="card" style={`--block-color: var(--block-color-${card.color}); max-width: 500px`}>
-    
+<div style={`--block-color: var(--block-color-${card.color});`} >
     {#if card.blocks > 1}
         <div style={'display: flex'}>
             <div class="block" style={`width: 200px`}/>

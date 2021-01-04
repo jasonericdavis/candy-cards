@@ -2,21 +2,26 @@
 	import ColorCard from './ColorCard.svelte';
 	import CandyCard from './CandyCard.svelte';
 	import cards from './deck';
-	import { slide } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	let cardIndex
 	let card
 	let deck = [...cards]
+	let unique = {} // unique is used to recreate the card component 
 	export let name;
 	
 	const getNextCard = () => {
-		console.log(`I am the click handler`)
+		/* 
+			if the deck still has cards 
+			select a random card from the deck. If not then "shuffle"
+			by re-adding the cards
+		*/
 		if(deck.length < 1 ) deck = [...cards]
-		
 		cardIndex = Math.floor(Math.random() * deck.length)
 		card = {...deck[cardIndex]}
 		deck = deck.filter((card, index) => index != cardIndex)
 		console.table(deck)
+		unique = {} 
 	}
 </script>
 
@@ -41,13 +46,14 @@
 		}
 	}
 
-	:global(.card) {
+	.card {
 		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 		margin-left: auto;
 		margin-right: auto;
 		padding-top: 15px;
 		padding-bottom: 10px;
 		background-color: #F8F8F8;
+		max-width: 500px;
 	}
 
 	:global(:root) {
@@ -61,17 +67,22 @@
 </style>
 
 <main>
-	<h1>{name}!</h1>
-	<div on:click={getNextCard}  transition:slide="{{delay: 250, duration: 1000}}">
-		{#if !card}
-			<div>Welcome to Candy Cards. Click to start</div>
-		{:else}
-			{#if card.type === 'color'}
-				<ColorCard {card} />
-			{/if}
-			{#if card.type === 'candy'}
-				<CandyCard {card} />
-			{/if}
-		{/if}
-	</div>
+	<h1>{name}!</h1>	
+	{#if !card}
+		<div>Welcome to Candy Cards. Click to start</div>
+		<button on:click={getNextCard}>Start</button>
+	{:else}
+		{#key unique}
+		<div class="card" >
+			<div on:click={getNextCard} in:fade="{{delay: 500, duration: 500}}" out:fade="{{delay: 50, duration: 500}}">
+				{#if card.type === 'color'}
+					<ColorCard {card} />
+				{/if}
+				{#if card.type === 'candy'}
+					<CandyCard {card} />
+				{/if}
+			</div>
+		</div>
+		{/key}
+	{/if}
 </main>
